@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pratham Mehta - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        position: relative;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(
+          135deg,
+          #1e3a8a 0%,
+          #3730a3 25%,
+          #7c3aed 75%,
+          #ec4899 100%
+        );
+      }
+
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .card-hover {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .card-hover:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      }
+
+      .skill-bar {
+        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .skill-bar::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .skill-bar:hover::after {
+        left: 100%;
+      }
+
+      .typing-animation {
+        border-right: 3px solid #fbbf24;
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          border-color: transparent;
+        }
+        51%,
+        100% {
+          border-color: #fbbf24;
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .float-animation {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .section-reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+      }
+
+      .section-reveal.revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .mobile-menu {
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+      }
+
+      .mobile-menu.open {
+        transform: translateX(0);
+      }
+
+      .nav-link {
+        position: relative;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 50%;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        transition: all 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 overflow-x-hidden">
+    <!-- Navigation -->
+    <nav
+      class="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 shadow-lg border-b border-gray-100"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <div
+            class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+          >
+            Pratham Mehta
+          </div>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#home"
+              class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >Home</a
+            >
+            <a
+              href="#about"
+              class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >About</a
+            >
+            <a
+              href="#skills"
+              class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >Skills</a
+            >
+            <a
+              href="#projects"
+              class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >Projects</a
+            >
+            <a
+              href="#contact"
+              class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="menuBtn"
+            class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            <svg
+              class="w-6 h-6 text-gray-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobileMenu"
+        class="mobile-menu fixed top-0 right-0 w-full h-screen bg-white z-40 md:hidden"
+      >
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+          <a
+            href="#home"
+            class="text-2xl font-medium text-gray-700 hover:text-blue-600 transition-colors mobile-nav-link"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="text-2xl font-medium text-gray-700 hover:text-blue-600 transition-colors mobile-nav-link"
+            >About</a
+          >
+          <a
+            href="#skills"
+            class="text-2xl font-medium text-gray-700 hover:text-blue-600 transition-colors mobile-nav-link"
+            >Skills</a
+          >
+          <a
+            href="#projects"
+            class="text-2xl font-medium text-gray-700 hover:text-blue-600 transition-colors mobile-nav-link"
+            >Projects</a
+          >
+          <a
+            href="#contact"
+            class="text-2xl font-medium text-gray-700 hover:text-blue-600 transition-colors mobile-nav-link"
+            >Contact</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="min-h-screen gradient-bg flex items-center justify-center text-white relative"
+    >
+      <div class="absolute inset-0 bg-black/20"></div>
+      <div
+        class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
+      >
+        <div class="mb-8 float-animation">
+          <div
+            class="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-6 glass-effect rounded-full flex items-center justify-center text-4xl sm:text-6xl"
+          >
+            👨‍💻
+          </div>
+        </div>
+        <h1
+          class="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+        >
+          Hi, I'm <span class="text-yellow-400">Pratham</span>
+        </h1>
+        <div class="text-lg sm:text-xl lg:text-2xl mb-8 h-8">
+          <span id="typingText" class="typing-animation font-medium"></span>
+        </div>
+        <p
+          class="text-base sm:text-lg lg:text-xl mb-10 max-w-3xl mx-auto opacity-90 leading-relaxed"
+        >
+          BCA Final Year Student specializing in
+          <span class="text-yellow-400 font-semibold">Cybersecurity</span> &
+          <span class="text-yellow-400 font-semibold">Python Development</span>
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="#projects"
+            class="bg-white text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg"
+          >
+            View My Work
+          </a>
+          <a
+            href="#contact"
+            class="glass-effect text-white px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition-all duration-300 hover:scale-105"
+          >
+            Get In Touch
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 sm:py-20 lg:py-24 bg-white relative z-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 section-reveal">
+          <h2
+            class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4"
+          >
+            About Me
+          </h2>
+          <div
+            class="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"
+          ></div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div class="section-reveal order-2 lg:order-1">
+            <div class="relative">
+              <div
+                class="w-64 h-64 sm:w-80 sm:h-80 mx-auto bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 rounded-3xl flex items-center justify-center text-6xl sm:text-8xl text-white shadow-2xl transform rotate-3 hover:rotate-6 transition-transform duration-300"
+              >
+                🛡️
+              </div>
+              <div
+                class="absolute -top-4 -right-4 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-2xl animate-pulse"
+              >
+                ⚡
+              </div>
+            </div>
+          </div>
+
+          <div class="section-reveal order-1 lg:order-2 space-y-6">
+            <h3 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">
+              Passionate About
+              <span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600"
+                >Cybersecurity</span
+              >
+              & Development
+            </h3>
+            <p class="text-gray-600 text-lg leading-relaxed">
+              I'm a dedicated BCA final year student with a strong focus on
+              cybersecurity and Python programming. My journey in computer
+              applications has equipped me with comprehensive knowledge in
+              software development, network security, and ethical hacking
+              practices.
+            </p>
+            <p class="text-gray-600 text-lg leading-relaxed">
+              I'm passionate about creating secure, efficient solutions and
+              staying updated with the latest cybersecurity threats and
+              mitigation strategies. My goal is to contribute to making the
+              digital world safer through innovative security solutions.
+            </p>
+
+            <div class="grid sm:grid-cols-2 gap-6 pt-6">
+              <div
+                class="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-xl"
+              >
+                <h4 class="font-bold text-gray-800 mb-2 flex items-center">
+                  <span class="mr-2">🎓</span> Education
+                </h4>
+                <p class="text-gray-600 font-medium">BCA Final Year</p>
+              </div>
+              <div
+                class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl"
+              >
+                <h4 class="font-bold text-gray-800 mb-2 flex items-center">
+                  <span class="mr-2">🎯</span> Focus Areas
+                </h4>
+                <p class="text-gray-600 font-medium">Cybersecurity & Python</p>
+                <p class="text-gray-600 font-medium">Security Analyst</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section
+      id="skills"
+      class="py-16 sm:py-20 lg:py-24 bg-gray-50 relative z-20"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 section-reveal">
+          <h2
+            class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4"
+          >
+            Skills & Expertise
+          </h2>
+          <div
+            class="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"
+          ></div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Cybersecurity Skills -->
+          <div
+            class="section-reveal bg-white p-8 rounded-2xl shadow-xl card-hover border border-gray-100"
+          >
+            <div class="text-5xl mb-6 text-center">🔒</div>
+            <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">
+              Cybersecurity
+            </h3>
+            <div class="space-y-4">
+              <div class="skill-item">
+                <div class="flex justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-700"
+                    >Network Security</span
+                  >
+                  <span class="text-sm font-bold text-blue-600">85%</span>
+                </div>
+                <div class="bg-gray-200 rounded-full h-3">
+                  <div
+                    class="skill-bar bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full"
+                    style="width: 0%"
+                    data-width="85%"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="flex justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-700"
+                    >Ethical Hacking</span
+                  >
+                  <span class="text-sm font-bold text-blue-600">80%</span>
+                </div>
+                <div class="bg-gray-200 rounded-full h-3">
+                  <div
+                    class="skill-bar bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full"
+                    style="width: 0%"
+                    data-width="80%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Programming Skills -->
+          <div
+            class="section-reveal bg-white p-8 rounded-2xl shadow-xl card-hover border border-gray-100"
+          >
+            <div class="text-5xl mb-6 text-center">🐍</div>
+            <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">
+              Programming
+            </h3>
+            <div class="space-y-4">
+              <div class="skill-item">
+                <div class="flex justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-700">Python</span>
+                  <span class="text-sm font-bold text-green-600">90%</span>
+                </div>
+                <div class="bg-gray-200 rounded-full h-3">
+                  <div
+                    class="skill-bar bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full"
+                    style="width: 0%"
+                    data-width="90%"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="flex justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-700">Java</span>
+                  <span class="text-sm font-bold text-green-600">75%</span>
+                </div>
+                <div class="bg-gray-200 rounded-full h-3">
+                  <div
+                    class="skill-bar bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full"
+                    style="width: 0%"
+                    data-width="75%"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="flex justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-700">SQL</span>
+                  <span class="text-sm font-bold text-green-600">80%</span>
+                </div>
+                <div class="bg-gray-200 rounded-full h-3">
+                  <div
+                    class="skill-bar bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full"
+                    style="width: 0%"
+                    data-width="80%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tools & Technologies -->
+          <div
+            class="section-reveal bg-white p-8 rounded-2xl shadow-xl card-hover border border-gray-100 sm:col-span-2 lg:col-span-1"
+          >
+            <div class="text-5xl mb-6 text-center">🛠️</div>
+            <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">
+              Tools & Technologies
+            </h3>
+            <div class="space-y-4">
+              <div class="skill-item">
+                <div class="flex justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-700"
+                    >Kali Linux</span
+                  >
+                  <span class="text-sm font-bold text-purple-600">85%</span>
+                </div>
+                <div class="bg-gray-200 rounded-full h-3">
+                  <div
+                    class="skill-bar bg-gradient-to-r from-purple-500 to-purple-600 h-3 rounded-full"
+                    style="width: 0%"
+                    data-width="85%"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="flex justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-700"
+                    >Git & GitHub</span
+                  >
+                  <span class="text-sm font-bold text-purple-600">85%</span>
+                </div>
+                <div class="bg-gray-200 rounded-full h-3">
+                  <div
+                    class="skill-bar bg-gradient-to-r from-purple-500 to-purple-600 h-3 rounded-full"
+                    style="width: 0%"
+                    data-width="85%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section
+      id="projects"
+      class="py-16 sm:py-20 lg:py-24 bg-white relative z-20"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 section-reveal">
+          <h2
+            class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4"
+          >
+            Featured Projects
+          </h2>
+          <div
+            class="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"
+          ></div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Project 1 -->
+          <div
+            class="section-reveal bg-white rounded-2xl overflow-hidden shadow-xl card-hover border border-gray-100"
+          >
+            <div
+              class="h-48 sm:h-56 bg-gradient-to-br from-orange-400 via-red-500 to-pink-500 flex items-center justify-center text-6xl text-white relative overflow-hidden"
+            >
+              <div class="absolute inset-0 bg-black/20"></div>
+              <span class="relative z-10">🍔</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-3">Yummify</h3>
+              <p class="text-gray-600 mb-4 leading-relaxed">
+                A comprehensive cooking website and app that simplifies cooking
+                for beginners and people living away from home. Features
+                step-by-step recipes with clear instructions.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span
+                  class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
+                  >HTML/CSS</span
+                >
+                <span
+                  class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium"
+                  >JavaScript</span
+                >
+              </div>
+              <a
+                href="https://pratham-mehta-dev.github.io/Yummify"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 text-center font-semibold hover:scale-105"
+              >
+                View Project
+              </a>
+            </div>
+          </div>
+
+          <!-- Placeholder for future projects -->
+          <div
+            class="section-reveal bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden shadow-lg border-2 border-dashed border-gray-300"
+          >
+            <div
+              class="h-48 sm:h-56 bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center text-6xl text-white"
+            >
+              🚧
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-600 mb-3">
+                More Projects Coming Soon
+              </h3>
+              <p class="text-gray-500 mb-4 leading-relaxed">
+                I'm currently working on exciting new projects in cybersecurity
+                and Python development. Stay tuned for updates!
+              </p>
+              <div
+                class="bg-gray-200 text-gray-500 py-3 rounded-lg text-center font-semibold"
+              >
+                In Development
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section
+      id="contact"
+      class="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-50 to-gray-100 relative z-20"
+    >
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 section-reveal">
+          <h2
+            class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4"
+          >
+            Let's Connect
+          </h2>
+          <div
+            class="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6"
+          ></div>
+          <p class="text-gray-600 text-lg">
+            Ready to discuss opportunities in cybersecurity and development
+          </p>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-2xl p-8 sm:p-12 section-reveal">
+          <div class="grid sm:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold text-gray-800 mb-8">
+                Get In Touch
+              </h3>
+              <div class="space-y-6">
+                <div class="flex items-center group">
+                  <div
+                    class="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white text-xl mr-4 group-hover:scale-110 transition-transform duration-300"
+                  >
+                    📧
+                  </div>
+                  <div>
+                    <p class="font-semibold text-gray-800">Email</p>
+                    <p
+                      class="text-gray-600 hover:text-blue-600 transition-colors"
+                    >
+                      mehtapathu@gmail.com
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-center group">
+                  <div
+                    class="w-14 h-14 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl flex items-center justify-center text-white text-xl mr-4 group-hover:scale-110 transition-transform duration-300"
+                  >
+                    📱
+                  </div>
+                  <div>
+                    <p class="font-semibold text-gray-800">Phone</p>
+                    <p
+                      class="text-gray-600 hover:text-green-600 transition-colors"
+                    >
+                      +91 9106756700
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-center group">
+                  <div
+                    class="w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center text-white text-xl mr-4 group-hover:scale-110 transition-transform duration-300"
+                  >
+                    💼
+                  </div>
+                  <div>
+                    <p class="font-semibold text-gray-800">LinkedIn</p>
+                    <a
+                      href="https://linkedin.com/in/mehta-pratham-dev"
+                      target="_blank"
+                      class="text-blue-600 hover:text-blue-800 transition-colors font-medium"
+                    >
+                      mehta-pratham-dev
+                    </a>
+                  </div>
+                </div>
+
+                <div class="flex items-center group">
+                  <div
+                    class="w-14 h-14 bg-gradient-to-br from-gray-700 to-gray-900 rounded-xl flex items-center justify-center text-white text-xl mr-4 group-hover:scale-110 transition-transform duration-300"
+                  >
+                    🐙
+                  </div>
+                  <div>
+                    <p class="font-semibold text-gray-800">GitHub</p>
+                    <a
+                      href="https://github.com/pratham-mehta-dev"
+                      target="_blank"
+                      class="text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                    >
+                      pratham-mehta-dev
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 flex items-center justify-center"
+            >
+              <div class="text-center">
+                <div class="text-6xl mb-4">🤝</div>
+                <h4 class="text-xl font-bold text-gray-800 mb-2">
+                  Let's Collaborate
+                </h4>
+                <p class="text-gray-600">
+                  Always open to discussing new opportunities and innovative
+                  projects
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-4">
+          <h3
+            class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+          >
+            Pratham Mehta
+          </h3>
+        </div>
+        <p class="text-gray-400 mb-2">
+          &copy; 2025 Pratham Mehta. All rights reserved.
+        </p>
+        <p class="text-gray-400">
+          BCA Student | Cybersecurity Enthusiast | Python Developer
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Typing animation
+      const texts = [
+        "Cybersecurity Enthusiast",
+        "Python Developer",
+        "BCA Student",
+        "Security Researcher",
+        "Problem Solver",
+      ];
+      let textIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      const typingElement = document.getElementById("typingText");
+
+      function typeText() {
+        const currentText = texts[textIndex];
+
+        if (isDeleting) {
+          typingElement.textContent = currentText.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          typingElement.textContent = currentText.substring(0, charIndex + 1);
+          charIndex++;
+        }
+
+        let typeSpeed = isDeleting ? 50 : 100;
+
+        if (!isDeleting && charIndex === currentText.length) {
+          typeSpeed = 2000;
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          textIndex = (textIndex + 1) % texts.length;
+          typeSpeed = 500;
+        }
+
+        setTimeout(typeText, typeSpeed);
+      }
+
+      // Start typing animation
+      typeText();
+
+      // Mobile menu toggle
+      const menuBtn = document.getElementById("menuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("open");
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll(".mobile-nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("open");
+        });
+      });
+
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Intersection Observer for section reveals
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("revealed");
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        }
+      );
+
+      document.querySelectorAll(".section-reveal").forEach((el) => {
+        revealObserver.observe(el);
+      });
+
+      // Animate skill bars when they come into view
+      const skillObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const skillBars = entry.target.querySelectorAll(".skill-bar");
+              skillBars.forEach((bar, index) => {
+                const width = bar.getAttribute("data-width");
+                setTimeout(() => {
+                  bar.style.width = width;
+                }, index * 200);
+              });
+            }
+          });
+        },
+        {
+          threshold: 0.5,
+          rootMargin: "0px 0px -100px 0px",
+        }
+      );
+
+      document
+        .querySelectorAll(".bg-white.p-8.rounded-2xl.shadow-xl")
+        .forEach((card) => {
+          skillObserver.observe(card);
+        });
+
+      // Active navigation link highlighting
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+      function updateActiveNavLink() {
+        let current = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (scrollY >= sectionTop - 200) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.classList.remove("text-blue-600");
+          if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("text-blue-600");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", updateActiveNavLink);
+
+      // Navbar background opacity on scroll
+      const navbar = document.querySelector("nav");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add("bg-white/95");
+          navbar.classList.remove("bg-white/80");
+        } else {
+          navbar.classList.add("bg-white/80");
+          navbar.classList.remove("bg-white/95");
+        }
+      });
+
+      // Parallax effect for hero section (removed to prevent overlapping)
+      // window.addEventListener('scroll', () => {
+      //     const scrolled = window.pageYOffset;
+      //     const hero = document.querySelector('#home');
+      //     if (hero) {
+      //         hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+      //     }
+      // });
+
+      // Add loading animation
+      window.addEventListener("load", () => {
+        document.body.classList.add("loaded");
+      });
+    </script>
+  </body>
+</html>
